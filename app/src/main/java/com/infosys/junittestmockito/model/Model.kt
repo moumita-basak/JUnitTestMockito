@@ -1,5 +1,8 @@
 package com.infosys.junittestmockito.model
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -9,12 +12,18 @@ import java.io.Serializable
  * @see : https://developer.android.com/index.html
  */
 
-data class Museum(
+data class ItemRow(
     @SerializedName("title")
-    val title: Any,
+    val title: String,
     @SerializedName("description")
-    val description: Any,
+    val description: String,
     @SerializedName("imageHref")
-    val imageHref: Any
+    val imageHref: Any)
 
-)
+
+@BindingAdapter("imageHref")
+fun loadImage(view: ImageView, imageHref: Any?) {
+    Glide.with(view.getContext())
+        .load(imageHref)
+        .into(view)
+}

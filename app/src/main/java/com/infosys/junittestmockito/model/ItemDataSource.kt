@@ -1,13 +1,16 @@
 package com.infosys.junittestmockito.model
 
 import com.infosys.junittestmockito.data.OperationCallback
+import io.reactivex.Single
 
 
 /**
  * @author Eduardo Medina
  */
-interface MuseumDataSource {
+interface ItemDataSource {
 
-    fun retrieveMuseums(callback: OperationCallback<Museum>)
+    fun retrieveItems(callback: OperationCallback<ItemRow>)
     fun cancel()
+
+
 }

@@ -4,73 +4,62 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.infosys.junittestmockito.R
+import com.infosys.junittestmockito.databinding.ActivityMainBinding
 import com.infosys.junittestmockito.di.Injection
-import com.infosys.junittestmockito.model.Museum
-import com.infosys.junittestmockito.viewmodel.MuseumViewModel
+import com.infosys.junittestmockito.model.ItemRow
+import com.infosys.junittestmockito.viewmodel.ItemViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_error.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MuseumViewModel
-    private lateinit var adapter: MuseumAdapter
+    private lateinit var activityMainBinding: ActivityMainBinding
+
+    private lateinit var viewModel: ItemViewModel
+    private lateinit var adapter: ItemsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        activityMainBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+
         setupViewModel()
         setupUI()
     }
     private fun setupUI() {
-        adapter = MuseumAdapter(viewModel.museums.value ?: emptyList())
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        adapter = ItemsAdapter(viewModel.itemResponse.value ?: emptyList(),this@MainActivity)
+        activityMainBinding.recyclerView.layoutManager = LinearLayoutManager(this)
+        activityMainBinding.recyclerView.itemAnimator = DefaultItemAnimator()
+        activityMainBinding.recyclerView.adapter = adapter
     }
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
             Injection.provideViewModelFactory()
-        ).get(MuseumViewModel::class.java)
+        ).get(ItemViewModel::class.java)
 
-        viewModel.museums.observe(this, renderMuseums)
-        viewModel.isViewLoading.observe(this, isViewLoadingObserver)
-        viewModel.onMessageError.observe(this, onMessageErrorObserver)
-        viewModel.isEmptyList.observe(this, emptyListObserver)
+        viewModel.itemResponse.observe(this,renderItems)
+
     }
 
     //observers
-    private val renderMuseums = Observer<List<Museum>> {
+    private val renderItems = Observer<List<ItemRow>> {
         Log.v(TAG, "data updated $it")
         layoutError.visibility = View.GONE
         layoutEmpty.visibility = View.GONE
         adapter.update(it)
     }
 
-    private val isViewLoadingObserver = Observer<Boolean> {
-        Log.v(TAG, "isViewLoading $it")
-        val visibility = if (it) View.VISIBLE else View.GONE
-        progressBar.visibility = visibility
-    }
 
-    private val onMessageErrorObserver = Observer<Any> {
-        Log.v(TAG, "onMessageError $it")
-        layoutError.visibility = View.VISIBLE
-        layoutEmpty.visibility = View.GONE
-        textViewError.text = "Error $it"
-    }
 
-    private val emptyListObserver = Observer<Boolean> {
-        Log.v(TAG, "emptyListObserver $it")
-        layoutEmpty.visibility = View.VISIBLE
-        layoutError.visibility = View.GONE
-    }
-
-    //If you require updated data, you can call the method "loadMuseum" here
     override fun onResume() {
         super.onResume()
-        viewModel.loadMuseums()
+
+        viewModel.getItemData()
     }
 
     companion object {

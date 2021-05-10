@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.infosys.junittestmockito.model.ItemRow" />
+
+        <variable
+            name="itemClickListener"
+            type="com.infosys.junittestmockito.view.listener.ClickListener" />
+    </data>
+
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="@dimen/_5sdp"
+        android:onClick="@{() -> itemClickListener.cardClicked(model)}"
         android:background="@drawable/gradient_background">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp" >
 
             <TextView
-                android:id="@+id/item_title"
+                android:id="@+id/itemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:gravity="start"
                 android:textStyle="bold"
+                android:text="@{model.title}"
                 android:textSize="@dimen/_17ssp" />
         </LinearLayout>
 
@@ -30,18 +45,20 @@
             android:layout_margin="@dimen/_5sdp">
 
             <TextView
-                android:id="@+id/item_description"
+                android:id="@+id/itemDescription"
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="@dimen/_14ssp"/>
+                android:textSize="@dimen/_14ssp"
+                android:text="@{model.description}"/>
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/image_main"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_toEndOf="@+id/item_description"
-                android:layout_toStartOf="@+id/image_arrow"/>
+                android:layout_toEndOf="@+id/itemDescription"
+                android:layout_toStartOf="@+id/image_arrow"
+                bind:imageHref="@{model.imageHref}"/>
             <ImageView
                 android:id="@+id/image_arrow"
                 android:layout_width="@dimen/_20sdp"
@@ -49,4 +66,69 @@
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_arrow_right_24"/>
         </RelativeLayout>
-    </LinearLayout>
+    </LinearLayout>-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        android:onClick="@{() -> itemClickListener.cardClicked(model)}">
+
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:gravity="start"
+            android:text="@{model.title}"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemDescription"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@{model.description}"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_main"
+            app:layout_constraintStart_toStartOf="@+id/itemTitle"
+            app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
+
+        <ImageView
+            android:id="@+id/image_main"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/image_arrow"
+            app:layout_constraintStart_toEndOf="@+id/itemDescription"
+            app:layout_constraintTop_toBottomOf="@+id/itemTitle"
+            bind:imageHref="@{model.imageHref}" />
+
+        <ImageView
+            android:id="@+id/image_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/itemTitle"
+            app:layout_constraintStart_toEndOf="@+id/image_main"
+            app:layout_constraintTop_toBottomOf="@+id/itemTitle"
+            app:layout_constraintVertical_bias="0.103"
+            app:srcCompat="@drawable/ic_arrow_right_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

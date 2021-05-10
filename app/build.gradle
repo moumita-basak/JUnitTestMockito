@@ -33,6 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding = true
+
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -46,12 +54,14 @@ dependencies {
     implementation "androidx.cardview:cardview:$cardViewVersion"
 
     testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "android.arch.core:core-testing:$archTestingVersion"
+//    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+//    testImplementation "android.arch.core:core-testing:$archTestingVersion"
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'android.arch.core:core-testing:2.1.0'
 
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
@@ -65,5 +75,21 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'com.google.android.material:material:1.1.0'
+    kapt 'com.android.databinding:compiler:2.3.1'
+
+    //    Rx Java components
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    //Kodein Dependency Injection
+    implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
+    implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
+    implementation 'com.orhanobut:logger:2.2.0'
+
+
+    implementation 'com.google.android:flexbox:0.3.0-alpha2'
 
 }

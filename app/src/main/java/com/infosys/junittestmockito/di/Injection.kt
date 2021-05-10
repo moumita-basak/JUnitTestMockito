@@ -1,11 +1,15 @@
 package com.infosys.junittestmockito.di
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.infosys.junittestmockito.JunitTestMockitoApplication
 
 import com.infosys.junittestmockito.data.ApiClient
-import com.infosys.junittestmockito.data.MuseumRemoteDataSource
-import com.infosys.junittestmockito.model.MuseumDataSource
-import com.infosys.junittestmockito.model.MuseumRepository
+import com.infosys.junittestmockito.data.ItemRemoteDataSource
+import com.infosys.junittestmockito.data.MyApi
+import com.infosys.junittestmockito.data.NetworkConnectionInterceptor
+import com.infosys.junittestmockito.model.ItemDataSource
+import com.infosys.junittestmockito.model.ItemRepository
 import com.infosys.junittestmockito.viewmodel.ViewModelFactory
 
 /**
@@ -13,15 +17,16 @@ import com.infosys.junittestmockito.viewmodel.ViewModelFactory
  */
 object Injection {
 
-    private val museumDataSource: MuseumDataSource = MuseumRemoteDataSource(ApiClient)
-    private val museumRepository = MuseumRepository(museumDataSource)
-    private val museumViewModelFactory = ViewModelFactory(museumRepository)
+    private val itemDataSource: ItemDataSource = ItemRemoteDataSource(ApiClient)
+    private val myApi: MyApi = MyApi(NetworkConnectionInterceptor(JunitTestMockitoApplication.appContext!!))
+    private val itemRepository = ItemRepository(myApi)
+    private val itemViewModelFactory = ViewModelFactory(itemRepository)
 
-    fun providerRepository(): MuseumDataSource {
-        return museumDataSource
+    fun providerRepository(): ItemDataSource {
+        return itemDataSource
     }
 
     fun provideViewModelFactory(): ViewModelProvider.Factory {
-        return museumViewModelFactory
+        return itemViewModelFactory
     }
 }
