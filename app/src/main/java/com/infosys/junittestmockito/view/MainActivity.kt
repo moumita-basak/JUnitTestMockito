@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //observers
     private val renderItems = Observer<List<ItemRow>> {
         Log.v(TAG, "data updated $it")
         layoutError.visibility = View.GONE

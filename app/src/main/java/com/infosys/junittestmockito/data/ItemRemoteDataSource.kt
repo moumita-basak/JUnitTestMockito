@@ -7,9 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * @author Eduardo Medina
- */
+
 class ItemRemoteDataSource(apiClient: ApiClient) : ItemDataSource {
 
     private var call: Call<ItemResponse>? = null
@@ -17,7 +15,7 @@ class ItemRemoteDataSource(apiClient: ApiClient) : ItemDataSource {
 
     override fun retrieveItems(callback: OperationCallback<ItemRow>) {
 
-        call = service?.items()
+        call = service.items()
         call?.enqueue(object : Callback<ItemResponse> {
             override fun onFailure(call: Call<ItemResponse>, t: Throwable) {
                 callback.onError(t.message)
@@ -39,8 +37,6 @@ class ItemRemoteDataSource(apiClient: ApiClient) : ItemDataSource {
     }
 
     override fun cancel() {
-        call?.let {
-            it.cancel()
-        }
+        call?.cancel()
     }
 }

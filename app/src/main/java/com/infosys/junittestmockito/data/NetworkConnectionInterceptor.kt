@@ -2,7 +2,6 @@ package com.infosys.junittestmockito.data
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
 import com.infosys.junittestmockito.util.NoInternetException
 
 import okhttp3.Interceptor
@@ -10,14 +9,14 @@ import okhttp3.Response
 
 @Suppress("DEPRECATION")
 class NetworkConnectionInterceptor(
-    val context: Context
+    private val context: Context
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
 
-        var authHeader=""
+        val authHeader=""
 
 
         val request =

@@ -23,6 +23,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
+@Suppress("DEPRECATION")
 class ItemViewModelTestNew{
     @Mock
     private lateinit var context: Application
@@ -34,7 +35,7 @@ class ItemViewModelTestNew{
 
     private lateinit var itemList: List<ItemRow>
     private lateinit var itemEmptyList: List<ItemRow>
-    private val repository = Mockito.mock(ItemRepository::class.java)
+    private val repository = mock(ItemRepository::class.java)
 
 
 
@@ -65,8 +66,7 @@ class ItemViewModelTestNew{
         val items = Items(itemList,title = "title")
         Mockito.`when`(repository.getItems()).thenReturn(Observable.just(items))
         viewModel.userResult.observeForever(observer)
-        viewModel.itemResponse.value!!.size == itemList.size
-       Assert.assertTrue(viewModel.itemResponse.value!!.size == 0)
+       assertTrue(viewModel.itemResponse.value!!.isEmpty())
 
 
     }
