@@ -3,7 +3,6 @@ package com.infosys.junittestmockito.viewmodel
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.infosys.junittestmockito.JunitTestMockitoApplication
 import com.infosys.junittestmockito.data.MyApi
 import com.infosys.junittestmockito.data.NetworkConnectionInterceptor
 import com.infosys.junittestmockito.model.ItemDataSource
@@ -11,13 +10,10 @@ import com.infosys.junittestmockito.model.ItemRepository
 import com.infosys.junittestmockito.model.ItemRow
 import com.infosys.junittestmockito.model.Items
 import io.reactivex.Observable
-import io.reactivex.Single
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
