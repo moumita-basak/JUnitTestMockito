@@ -9,7 +9,7 @@ import retrofit2.http.GET
 
 object ApiClient {
 
-    private const val API_BASE_URL = "https://dl.dropboxusercontent.com/"
+    private const val API_BASE_URL = "https://eacp.energyaustralia.com.au/"
 
     private var servicesApiInterface: ServicesApiInterface? = null
 
@@ -34,7 +34,7 @@ object ApiClient {
     }
 
     interface ServicesApiInterface {
-        @GET("s/2iodh4vg0eortkl/facts.json")
+        @GET("codingtest/api/v1/festivals")
         fun items(): Call<ItemResponse>
     }
 

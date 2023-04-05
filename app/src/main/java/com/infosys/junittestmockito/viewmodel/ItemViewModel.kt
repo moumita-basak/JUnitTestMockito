@@ -25,10 +25,11 @@ class ItemViewModel(private val repository: ItemRepository) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 userResult.postValue(it)
-                _itemsResponse.value = it.rows
+                _itemsResponse.value = it.bands
             }, {
 
-            }).let { compositeDisposable.add(it) }
+            }).
+            let { compositeDisposable.add(it) }
     }
 
 }

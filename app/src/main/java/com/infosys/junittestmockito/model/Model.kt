@@ -7,10 +7,15 @@ import com.google.gson.annotations.SerializedName
 
 
 data class ItemRow(
-    @SerializedName("title")
-    val title: String,
-    @SerializedName("description")
-    val description: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("recordLabel")
+    val recordLabel: String)
+
+    /*@SerializedName("name")
+    val name: String,
+    @SerializedName("recordLabel")
+    val recordLabel: String,
     @SerializedName("imageHref")
     val imageHref: String)
 
@@ -19,4 +24,4 @@ fun loadImage(view: ImageView, imageHref: String?) {
     Glide.with(view.context)
         .load(imageHref)
         .into(view)
-}
+}*/

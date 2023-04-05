@@ -5,7 +5,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.infosys.junittestmockito.data.MyApi
 import com.infosys.junittestmockito.data.NetworkConnectionInterceptor
-import com.infosys.junittestmockito.model.ItemDataSource
 import com.infosys.junittestmockito.model.ItemRepository
 import com.infosys.junittestmockito.model.ItemRow
 import com.infosys.junittestmockito.model.Items
@@ -50,16 +49,16 @@ class ItemViewModelTestNew{
     @Test
     fun `retrieve items with ViewModel and Repository returns empty data`() {
         itemList = ArrayList<ItemRow>()
-        val items = Items(itemList,title = "title")
+        val items = Items(itemList,name = "name")
         Mockito.`when`(repository.getItems()).thenReturn(Observable.just(items))
         viewModel.userResult.observeForever(observer)
         viewModel.getItemData()
-        assert(viewModel.itemResponse.value == items.rows)
+        assert(viewModel.itemResponse.value == items.bands)
 
     }
     @Test
     fun `retrieve items with ViewModel and Repository returns  data`() {
-        val items = Items(itemList,title = "title")
+        val items = Items(itemList,name = "name")
         Mockito.`when`(repository.getItems()).thenReturn(Observable.just(items))
         viewModel.userResult.observeForever(observer)
        assertTrue(viewModel.itemResponse.value!!.isEmpty())
@@ -71,14 +70,20 @@ class ItemViewModelTestNew{
         val mockList: MutableList<ItemRow> = mutableListOf()
         mockList.add(
             ItemRow("Title 1",
-                "Museo Nacional de Arqueología, Antropología e Historia del Perú",
-                ""
+                "Museo Nacional de Arqueología, Antropología e Historia del Perú"
             )
         )
-        mockList.add(ItemRow("Title 2", "Museo de Sitio Pachacamac", ""))
-        mockList.add(ItemRow("Title 3", "Casa Museo José Carlos Mariátegui", ""))
+        mockList.add(ItemRow("Title 2", "Museo de Sitio Pachacamac"))
+        mockList.add(ItemRow("Title 3", "Casa Museo José Carlos Mariátegui"))
 
         itemList = mockList.toList()
+    }
+
+
+    @Test
+    fun itemListEmpty(){
+        itemList = ArrayList()
+
     }
 
 }

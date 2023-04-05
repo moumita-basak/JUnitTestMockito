@@ -13,11 +13,7 @@ import java.util.concurrent.TimeUnit
 
 interface MyApi {
 
-    @GET("s/2iodh4vg0eortkl/facts.json")
-    fun getItemData() : Observable<Items>
-
-
-companion object{
+    companion object{
     operator fun invoke(
         networkConnectionInterceptor: NetworkConnectionInterceptor
     ): MyApi{
@@ -36,4 +32,6 @@ companion object{
     }
 
 }
+    @GET("codingtest/api/v1/festivals")
+    fun getItemData() : Observable<Items>
 }
