@@ -33,5 +33,6 @@ interface MyApi {
 
 }
     @GET("codingtest/api/v1/festivals")
+//    fun getItemData() : Observable<Items>
     fun getItemData() : Observable<Items>
 }
